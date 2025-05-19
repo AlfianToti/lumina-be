@@ -12,7 +12,9 @@ import {
 import { PrivilegesService } from './privileges.service';
 import { CreatePrivilegeDto } from './dto/create-privilege.dto';
 import { UpdatePrivilegeDto } from './dto/update-privilege.dto';
+import { Permissions } from 'src/common/decorators/permissions.decorator';
 
+@Permissions('privileges')
 @Controller('privileges')
 export class PrivilegesController {
   constructor(private readonly privilegesService: PrivilegesService) {}

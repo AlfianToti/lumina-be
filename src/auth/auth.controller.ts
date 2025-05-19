@@ -8,6 +8,7 @@ import {
 import { AuthService } from './auth.service';
 import { UsersService } from 'src/users/users.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { Permissions } from 'src/common/decorators/permissions.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -16,6 +17,7 @@ export class AuthController {
     private userService: UsersService,
   ) {}
 
+  @Permissions('users')
   @Post('register')
   async register(@Body() dto: CreateUserDto) {
     return this.userService.create(dto);

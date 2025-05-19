@@ -18,11 +18,13 @@ import { UpdateBlogDto } from './dto/update-blog.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { Permissions } from 'src/common/decorators/permissions.decorator';
 
 @Controller('blogs')
 export class BlogsController {
   constructor(private readonly blogsService: BlogsService) {}
 
+  @Permissions('blogs')
   @Post()
   @UseInterceptors(
     FileInterceptor('cover', {
@@ -50,7 +52,7 @@ export class BlogsController {
     @Body() createBlogDto: CreateBlogDto,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    const coverPath = file ? `/upload/images/${file.filename}` : null;
+    const coverPath = file ? `/uploads/images/${file.filename}` : null;
     createBlogDto.cover = coverPath;
     return this.blogsService.create(createBlogDto);
   }
@@ -70,11 +72,13 @@ export class BlogsController {
     return this.blogsService.findOne(id);
   }
 
+  @Permissions('blogs')
   @Put(':id')
   update(@Param('id') id: string, @Body() updateBlogDto: UpdateBlogDto) {
     return this.blogsService.update(id, updateBlogDto);
   }
 
+  @Permissions('blogs')
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.blogsService.remove(id);
