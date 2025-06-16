@@ -8,6 +8,7 @@ import { JwtStrategy } from './jwt.strategy';
 import { PermissionsGuard } from './permission.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth.guard';
+import { RolesModule } from 'src/roles/roles.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { JwtAuthGuard } from './auth.guard';
       signOptions: { expiresIn: '15m' },
     }),
     UsersModule,
+    RolesModule,
   ],
   controllers: [AuthController],
   providers: [

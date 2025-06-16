@@ -15,7 +15,6 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, any> {
       map((list: any) => {
         return {
           message: 'success',
-          status: response.statusCode,
           list,
         };
       }),
